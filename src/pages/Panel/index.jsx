@@ -1,9 +1,10 @@
-import React from 'react';
-import { render } from 'react-dom';
+import './index.css'
 
-import Panel from './Panel';
-import './index.css';
+import React from 'react'
+import { render } from 'react-dom'
 
-render(<Panel />, window.document.querySelector('#app-container'));
+import Panel from './Panel'
 
-if (module.hot) module.hot.accept();
+render(<Panel />, window.document.querySelector('#app-container'))
+
+if (module.hot) module.hot.accept()

@@ -1,9 +1,10 @@
-import React from 'react';
-import { render } from 'react-dom';
+import './index.css'
 
-import Popup from './Popup';
-import './index.css';
+import React from 'react'
+import { render } from 'react-dom'
 
-render(<Popup />, window.document.querySelector('#app-container'));
+import Popup from './Popup'
 
-if (module.hot) module.hot.accept();
+render(<Popup/>, window.document.querySelector('#app-container'))
+
+if (module.hot) module.hot.accept()

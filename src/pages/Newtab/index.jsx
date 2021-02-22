@@ -1,9 +1,10 @@
-import React from 'react';
-import { render } from 'react-dom';
+import './index.css'
 
-import Newtab from './Newtab';
-import './index.css';
+import React from 'react'
+import { render } from 'react-dom'
 
-render(<Newtab />, window.document.querySelector('#app-container'));
+import Newtab from './Newtab'
 
-if (module.hot) module.hot.accept();
+render(<Newtab />, window.document.querySelector('#app-container'))
+
+if (module.hot) module.hot.accept()

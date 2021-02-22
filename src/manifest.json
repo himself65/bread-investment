@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension with React & Webpack",
+  "name": "理财助手 - 实时查看基金、股票行情",
   "options_page": "options.html",
   "background": [
     {
@@ -10,9 +10,6 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
-  },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
   },
   "icons": {
     "128": "icon-128.png"
