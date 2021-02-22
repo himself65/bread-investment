@@ -1,6 +1,6 @@
 {
   "name": "bread-fund",
-  "version": "4.0.0",
+  "version": "0.1.0",
   "description": "Fund extension using React.js",
   "private": true,
   "license": "MIT",
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "node utils/build.js",
+    "build-zip": "node utils/zip.js",
     "start": "node utils/webserver.js",
     "lint": "yarn lint:eslint",
     "lint:fix": "yarn lint:eslint --fix",
@@ -36,6 +37,7 @@
     "@types/axios": "^0.14.0",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
+    "archiver": "^5.2.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
