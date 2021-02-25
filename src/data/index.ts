@@ -1,4 +1,4 @@
-export const indexFunds: {id: string; name: string}[] = [
+export const marketIndexes: {id: string; name: string}[] = [
   {
     id: '1.000001',
     name: '上证指数'

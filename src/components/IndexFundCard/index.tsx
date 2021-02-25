@@ -8,7 +8,8 @@ import {
 } from '@material-ui/core'
 import React, { useMemo } from 'react'
 
-import { IndexFund } from '../IndexFundsGrid'
+import { Index } from '../../type'
+import { fixedNumber } from '../../util'
 
 const useStyles = makeStyles({
   card: {
@@ -18,12 +19,12 @@ const useStyles = makeStyles({
 })
 
 export type IndexFundCardProps = {
-  indexFund: IndexFund
+  index: Index
 }
 
-const IndexFundCard: React.FC<IndexFundCardProps> = ({ indexFund }) => {
+const IndexFundCard: React.FC<IndexFundCardProps> = ({ index }) => {
   const theme = useTheme()
-  const isUp = useMemo(() => indexFund.growthPrice > 0, [indexFund])
+  const color = useMemo(() => (index.growth.price > 0) ? 'red' : 'green', [index.growth.price])
   const classes = useStyles()
   return (
     <Card className={classes.card}>
@@ -32,23 +33,23 @@ const IndexFundCard: React.FC<IndexFundCardProps> = ({ indexFund }) => {
           <Box
             fontWeight={theme.typography.fontWeightLight}
           >
-            {indexFund.name}
+            {index.name}
           </Box>
           <Box
-            color={isUp ? 'red' : 'green'}
+            color={color}
             fontSize={theme.typography.caption.fontSize}
             fontWeight={theme.typography.caption.fontWeight}
           >
-            {indexFund.total}
+            {index.price}
           </Box>
           <Box
-            color={isUp ? 'red' : 'green'}
+            color={color}
             fontSize={theme.typography.caption.fontSize}
             fontWeight={theme.typography.caption.fontWeight}
           >
-            {Math.abs(indexFund.growthPrice)}
-            {' '}{isUp ? '+' : '-'}
-            {Math.abs(indexFund.growthRate)}{'%'}
+            {Math.abs(index.growth.price)}
+            {' '}
+            {fixedNumber(index.growth.rate)}{'%'}
           </Box>
         </Typography>
       </CardActionArea>
