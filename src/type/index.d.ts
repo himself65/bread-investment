@@ -1,14 +1,14 @@
 export type Market = 'CN' | 'EN' | 'UNKNOWN'
 
-export type FinancialProductCode = string
+export type InvestmentCode = string
 
-export type FinancialProduct = {
+export type Investment = {
   name: string
-  id: FinancialProductCode
+  id: InvestmentCode
   market: Market
 }
 
-export interface Index extends FinancialProduct {
+export interface Index extends Investment {
   price: number
   growth: {
     rate: number
@@ -16,6 +16,6 @@ export interface Index extends FinancialProduct {
   }
 }
 
-export interface Fund extends FinancialProduct {
+export interface Fund extends Investment {
   rate: number
 }

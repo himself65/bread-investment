@@ -7,11 +7,11 @@ import React from 'react'
 import { useAsync, useList } from 'react-use'
 
 import { getFunds, getIndexFunds } from '../../api'
-import FundsTable from '../../components/FinancialProductTable'
 import IndexFundsGrid from '../../components/IndexFundsGrid'
+import FundsTable from '../../components/InvestmentTable'
 import { marketIndexes } from '../../data'
 import { createUserSettings } from '../../store'
-import { FinancialProduct, Index } from '../../type'
+import { Index, Investment } from '../../type'
 import { initUserSettings } from '../../util'
 
 const MarketIndexes: React.FC = () => {
@@ -29,14 +29,14 @@ const MarketIndexes: React.FC = () => {
 
 const Popup: React.FC = () => {
   const userSettings = useLocalStore(createUserSettings)
-  const [products, { set: setProducts }] = useList<FinancialProduct>([])
+  const [investments, { set: setInvestments }] = useList<Investment>([])
   useAsync(async () => {
-    const products = [] as FinancialProduct[]
+    const products = [] as Investment[]
     await initUserSettings(userSettings)
     // load fund list
     const funds = await getFunds(userSettings.selectedProductIDs, userSettings.userID)
     products.push(...funds)
-    setProducts(products)
+    setInvestments(products)
 
     // load stock list
     // todo
@@ -45,7 +45,7 @@ const Popup: React.FC = () => {
     <Paper className='App'>
       <CssBaseline/>
       <MarketIndexes/>
-      <FundsTable products={products}/>
+      <FundsTable investments={investments}/>
     </Paper>
   )
 }

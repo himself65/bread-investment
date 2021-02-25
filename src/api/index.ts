@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-import { FinancialProduct, Fund, Index, Market } from '../type'
+import { Fund, Index, Investment, Market } from '../type'
 
 const axios = Axios.create()
 if (process.env.NODE_ENV === 'development') {
@@ -44,7 +44,7 @@ export function getFunds (funds: string[], id: string): Promise<Fund[]> {
   })
 }
 
-export type ChartData<Product = FinancialProduct, Data = string[]> = {
+export type ChartData<Product = Investment, Data = string[]> = {
   data: Data
   product: Product
 }
