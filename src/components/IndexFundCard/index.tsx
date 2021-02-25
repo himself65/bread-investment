@@ -13,8 +13,10 @@ import { fixedNumber } from '../../util'
 
 const useStyles = makeStyles({
   card: {
-    height: '100%',
-    paddingLeft: '1rem'
+    height: '100%'
+  },
+  body: {
+    padding: '1rem'
   }
 })
 
@@ -27,8 +29,8 @@ const IndexFundCard: React.FC<IndexFundCardProps> = ({ index }) => {
   const color = useMemo(() => (index.growth.price > 0) ? 'red' : 'green', [index.growth.price])
   const classes = useStyles()
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
+    <Card variant='outlined' className={classes.card}>
+      <CardActionArea className={classes.body}>
         <Typography component='div'>
           <Box
             fontWeight={theme.typography.fontWeightLight}

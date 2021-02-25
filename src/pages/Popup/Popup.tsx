@@ -1,18 +1,29 @@
 import './Popup.css'
 
-import { Paper } from '@material-ui/core'
+import { AppBar, Paper, Toolbar } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useLocalObservable } from 'mobx-react'
 import React from 'react'
 import { useAsync, useList } from 'react-use'
 
-import { getFunds, getIndexFunds } from '../../api'
+import { getFunds, getIndexFunds, getSearchFund } from '../../api'
 import IndexFundsGrid from '../../components/IndexFundsGrid'
 import FundsTable from '../../components/InvestmentTable'
+import SearchBar from '../../components/SearchBar'
 import { marketIndexes } from '../../data'
 import { createUserSettings } from '../../store'
 import { Index, Investment } from '../../type'
 import { initUserSettings } from '../../util'
+
+const TopBar: React.FC = () => {
+  return (
+    <AppBar position='static'>
+      <Toolbar variant='dense'>
+        <SearchBar onSearch={getSearchFund}/>
+      </Toolbar>
+    </AppBar>
+  )
+}
 
 const MarketIndexes: React.FC = () => {
   const [indexes, { set: setIndexes }] = useList<Index>([])
@@ -41,9 +52,11 @@ const Popup: React.FC = () => {
     // load stock list
     // todo
   }, [userSettings])
+
   return (
-    <Paper className='App'>
+    <Paper classes={{ root: 'App' }}>
       <CssBaseline/>
+      <TopBar/>
       <MarketIndexes/>
       <FundsTable investments={investments}/>
     </Paper>

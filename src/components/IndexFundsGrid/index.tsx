@@ -1,6 +1,5 @@
 import {
-  GridList,
-  GridListTile,
+  Grid,
   ListSubheader
 } from '@material-ui/core'
 import React from 'react'
@@ -14,20 +13,20 @@ export type IndexFundsGridProps = {
 
 const IndexFundsGrid: React.FC<IndexFundsGridProps> = ({ indexes }) => {
   return (
-    <GridList cellHeight={70} cols={4}>
-      <GridListTile style={{ height: 'auto', paddingBottom: 0 }} cols={4}>
+    <Grid container justifyContent='flex-start' alignItems='flex-start' spacing={2}>
+      <Grid item style={{ height: 'auto', paddingBottom: 0 }} xs={12}>
         <ListSubheader component='div'>
           行情看版
         </ListSubheader>
-      </GridListTile>
+      </Grid>
       {indexes.map(index => {
         return (
-          <GridListTile key={index.id} cols={1}>
-            <IndexFundCard index={index} />
-          </GridListTile>
+          <Grid item key={index.id} xs={3}>
+            <IndexFundCard index={index}/>
+          </Grid>
         )
       })}
-    </GridList>
+    </Grid>
   )
 }
 

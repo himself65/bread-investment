@@ -1,3 +1,5 @@
+// 基金数据使用天天数据网
+//
 import Axios from 'axios'
 
 import { Fund, Index, Investment, Market } from '../type'
@@ -84,5 +86,17 @@ export function getFundData (code: number | string): Promise<ChartData<Fund>> {
         rate: fund.rate
       }
     }
+  })
+}
+
+export function getSearchFund (query: string): Promise<Investment[]> {
+  const targetUrl = `https://fundsuggest.eastmoney.com/FundSearch/api/FundSearchAPI.ashx?&m=9&key=${query}&_=${getTime()}`
+  return axios.get(targetUrl).then(response => {
+    const data = response.data
+    return (data.Datas as any[]).map(data => ({
+      name: data.NAME,
+      id: data.CODE,
+      market: 'CN'
+    }))
   })
 }
