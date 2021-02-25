@@ -2,7 +2,7 @@ import './Popup.css'
 
 import { Paper } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { useLocalStore } from 'mobx-react'
+import { useLocalObservable } from 'mobx-react'
 import React from 'react'
 import { useAsync, useList } from 'react-use'
 
@@ -28,7 +28,7 @@ const MarketIndexes: React.FC = () => {
 }
 
 const Popup: React.FC = () => {
-  const userSettings = useLocalStore(createUserSettings)
+  const userSettings = useLocalObservable(createUserSettings)
   const [investments, { set: setInvestments }] = useList<Investment>([])
   useAsync(async () => {
     const products = [] as Investment[]
