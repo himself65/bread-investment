@@ -41,6 +41,7 @@
     "@babel/preset-react": "^7.12.13",
     "@material-ui/system": "^4.11.3",
     "@types/axios": "^0.14.0",
+    "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "archiver": "^5.2.0",

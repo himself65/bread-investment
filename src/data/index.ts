@@ -1,3 +1,5 @@
+import type { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+
 export const marketIndexes: {id: string; name: string}[] = [
   {
     id: '1.000001',
@@ -40,3 +42,11 @@ export const marketIndexes: {id: string; name: string}[] = [
     name: '标普500'
   }
 ]
+
+export const themeOptions: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#082850'
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import './Popup.css'
 
-import { AppBar, Paper, Toolbar } from '@material-ui/core'
+import { alpha, AppBar, makeStyles, Paper, Toolbar } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useLocalObservable } from 'mobx-react'
 import React from 'react'
@@ -15,11 +15,25 @@ import { createUserSettings } from '../../store'
 import { Index, Investment } from '../../type'
 import { initUserSettings } from '../../util'
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    height: '80%',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.55),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.75)
+    }
+  }
+}))
+
 const TopBar: React.FC = () => {
+  const classes = useStyles()
   return (
     <AppBar position='static'>
       <Toolbar variant='dense'>
-        <SearchBar onSearch={getSearchFund}/>
+        <SearchBar classes={{
+          root: classes.root
+        }} onSearch={getSearchFund}/>
       </Toolbar>
     </AppBar>
   )

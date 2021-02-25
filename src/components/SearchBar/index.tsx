@@ -1,16 +1,17 @@
 import { Autocomplete, TextField } from '@material-ui/core'
 import { AutocompleteRenderInputParams } from '@material-ui/core/Autocomplete'
+import { ComponentsProps, StyledComponentProps } from '@material-ui/core/styles'
 import { throttle } from 'lodash'
 import React, { SyntheticEvent, useMemo, useState } from 'react'
 import { useAsync, useList } from 'react-use'
 
 import { Investment } from '../../type'
 
-export type SearchBarProps = {
+export type SearchBarProps = StyledComponentProps<keyof Exclude<Exclude<ComponentsProps['MuiAutocomplete'], undefined>['classes'], undefined>> & {
   onSearch: (query: string) => Promise<Investment[]>
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, classes, innerRef }) => {
   const fetch = useMemo(() => throttle(onSearch, 200), [])
   const [values, { set: setValues }] = useList<Investment>([])
   const [query, setQuery] = useState('')
@@ -28,6 +29,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   }, [query, fetch])
   return (
     <Autocomplete<Investment, true>
+      classes={classes}
+      innerRef={innerRef}
       id='search-bar'
       autoComplete
       multiple
@@ -51,7 +54,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         <TextField
           {...params}
           fullWidth
-          label='搜索'
+          color='primary'
+          placeholder='搜索'
           inputMode='search'
         />)
       }
