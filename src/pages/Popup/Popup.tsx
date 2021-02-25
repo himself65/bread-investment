@@ -1,43 +1,35 @@
 import './Popup.css'
 
-import { alpha, AppBar, makeStyles, Paper, Toolbar } from '@material-ui/core'
+import {
+  alpha,
+  AppBar, Container, makeStyles,
+  Paper,
+  Toolbar, Typography
+} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useLocalObservable } from 'mobx-react'
 import React from 'react'
-import { useAsync, useList } from 'react-use'
+import { useAsync, useList, useUnmount } from 'react-use'
 
 import { getFunds, getIndexFunds, getSearchFund } from '../../api'
 import IndexFundsGrid from '../../components/IndexFundsGrid'
 import FundsTable from '../../components/InvestmentTable'
-import SearchBar from '../../components/SearchBar'
+import Search from '../../components/Search'
 import { marketIndexes } from '../../data'
 import { createUserSettings } from '../../store'
 import { Index, Investment } from '../../type'
-import { initUserSettings } from '../../util'
+import { initUserSettings, saveUserSettings } from '../../util'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    height: '80%',
-    borderRadius: theme.shape.borderRadius,
+  searchBar: {
+    marginLeft: '1rem',
+    position: 'relative',
     backgroundColor: alpha(theme.palette.common.white, 0.55),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.75)
+      backgroundColor: alpha(theme.palette.common.white, 0.65)
     }
   }
 }))
-
-const TopBar: React.FC = () => {
-  const classes = useStyles()
-  return (
-    <AppBar position='static'>
-      <Toolbar variant='dense'>
-        <SearchBar classes={{
-          root: classes.root
-        }} onSearch={getSearchFund}/>
-      </Toolbar>
-    </AppBar>
-  )
-}
 
 const MarketIndexes: React.FC = () => {
   const [indexes, { set: setIndexes }] = useList<Index>([])
@@ -53,6 +45,7 @@ const MarketIndexes: React.FC = () => {
 }
 
 const Popup: React.FC = () => {
+  const classes = useStyles()
   const userSettings = useLocalObservable(createUserSettings)
   const [investments, { set: setInvestments }] = useList<Investment>([])
   useAsync(async () => {
@@ -67,12 +60,28 @@ const Popup: React.FC = () => {
     // todo
   }, [userSettings])
 
+  useUnmount(async () => {
+    await saveUserSettings(userSettings)
+  })
+
   return (
     <Paper classes={{ root: 'App' }}>
       <CssBaseline/>
-      <TopBar/>
-      <MarketIndexes/>
-      <FundsTable investments={investments}/>
+      <AppBar>
+        <Toolbar>
+          <Typography>
+            基金助手
+          </Typography>
+          <div className={classes.searchBar}>
+            <Search onSearch={getSearchFund}/>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Toolbar/>
+      <Container>
+        <MarketIndexes/>
+        <FundsTable investments={investments}/>
+      </Container>
     </Paper>
   )
 }

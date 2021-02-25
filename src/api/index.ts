@@ -34,7 +34,6 @@ export function getIndexFunds (funds: string[]): Promise<Index[]> {
 
 export function getFunds (funds: string[], id: string): Promise<Fund[]> {
   const targetUrl = `https://fundmobapi.eastmoney.com/FundMNewApi/FundMNFInfo?pageIndex=1&pageSize=200&plat=Android&appType=ttjj&product=EFund&Version=1&deviceid=${id}&Fcodes=${funds.join(',')}`
-  console.log('send: ', targetUrl)
   return axios.get(targetUrl).then(response => {
     const data = response.data.Datas as any[]
     return data.map(fund => ({

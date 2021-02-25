@@ -1,11 +1,22 @@
+import { toJS } from 'mobx'
+
 import { UserSetting } from '../store'
 
 export async function initUserSettings (store: UserSetting): Promise<void> {
   return new Promise(resolve => {
     chrome.storage.sync.get([
-      'userID'
-    ], res => {
-      store.userID = res.userID
+      'userID',
+      'selectedProductIDs'
+    ], (res: Record<string, unknown>) => {
+      if (res.userID && typeof res.userID === 'string') {
+        store.userID = res.userID
+      }
+      if (res.selectedProductIDs && Array.isArray(res.selectedProductIDs)) {
+        store.selectedProductIDs = res.selectedProductIDs
+      }
+      if (process.env.NODE_ENV === 'development') {
+        console.log('store init: ', res)
+      }
       resolve()
     })
   })
@@ -13,7 +24,11 @@ export async function initUserSettings (store: UserSetting): Promise<void> {
 
 export const saveUserSettings = (store: Partial<UserSetting>): Promise<void> => {
   return new Promise(resolve => {
-    chrome.storage.sync.set(store, () => {
+    const save = toJS(store)
+    chrome.storage.sync.set(save, () => {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('store saved: ', save)
+      }
       resolve()
     })
   })
