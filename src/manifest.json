@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "理财助手 - 实时查看基金、股票行情",
+  "name": "面包投资助手 - 实时查看基金、股票、虚拟货币行情",
   "options_page": "options.html",
   "background": [
     {
