@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { Autocomplete, TextField } from '@material-ui/core'
 import { AutocompleteRenderInputParams } from '@material-ui/core/Autocomplete'
 import { throttle } from 'lodash'
